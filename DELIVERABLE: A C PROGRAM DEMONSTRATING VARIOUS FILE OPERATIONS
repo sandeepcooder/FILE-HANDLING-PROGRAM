@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *fp;
+    char buffer[256];
+
+    // ---------- File Creation and Writing ----------
+    fp = fopen("file_demo.txt", "w"); // Open file for writing (creates if not exists)
+    if (fp == NULL) {
+        printf("Error: Unable to create file.\n");
+        return 1;
+    }
+
+    fprintf(fp, "Hello, this is the initial content of the file.\n");
+    fprintf(fp, "File operations in C are fun!\n");
+    fclose(fp);
+    printf("✅ File created and written successfully.\n");
+
+    // ---------- Appending Data ----------
+    fp = fopen("file_demo.txt", "a"); // Open file for appending
+    if (fp == NULL) {
+        printf("Error: Unable to open file for appending.\n");
+        return 1;
+    }
+
+    fprintf(fp, "This line is appended to the file.\n");
+    fclose(fp);
+    printf("✅ Data appended successfully.\n");
+
+    // ---------- Reading from File ----------
+    fp = fopen("file_demo.txt", "r"); // Open file for reading
+    if (fp == NULL) {
+        printf("Error: Unable to open file for reading.\n");
+        return 1;
+    }
+
+    printf("\n📄 File Contents:\n");
+    while (fgets(buffer, sizeof(buffer), fp) != NULL) {
+        printf("%s", buffer);
+    }
+    fclose(fp);
+
+    return 0;
+}
