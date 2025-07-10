@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    FILE *file;
+    char data[100];
+
+    // 1. Create and Write to File
+    file = fopen("example.txt", "w");  // "w" creates file if not exists, writes (deletes previous content)
+    if (file == NULL) {
+        printf("Error creating file!\n");
+        return 1;
+    }
+
+    fprintf(file, "This is the first line written to the file.\n");
+    fclose(file);
+    printf("File created and written successfully.\n");
+
+    // 2. Append Data to File
+    file = fopen("example.txt", "a");  // "a" mode appends data
+    if (file == NULL) {
+        printf("Error opening file for appending!\n");
+        return 1;
+    }
+
+    fprintf(file, "This line is appended to the file.\n");
+    fclose(file);
+    printf("Data appended successfully.\n");
+
+    // 3. Read and Display File Contents
+    file = fopen("example.txt", "r");  // "r" mode for reading
+    if (file == NULL) {
+        printf("Error opening file for reading!\n");
+        return 1;
+    }
+
+    printf("\nReading file contents:\n");
+    while (fgets(data, sizeof(data), file) != NULL) {
+        printf("%s", data);
+    }
+    fclose(file);
+
+    return 0;
+}
